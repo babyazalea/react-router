@@ -13,9 +13,7 @@ const QuoteDetail = () => {
 
     const {quoteId} = params;
 
-    const {sendRequest, status, data: loadedQuote, error} = useHttp(getSingleQuote);
-
-    const quote = loadedQuote.find((quote) => quote.id === params.quoteId);
+    const {sendRequest, status, data: loadedQuote, error} = useHttp(getSingleQuote, true);
 
     useEffect(() => {
         sendRequest(quoteId);
@@ -39,7 +37,7 @@ const QuoteDetail = () => {
 
     return (
         <Fragment>
-            <HighlightedQuote text={quote.text} author={quote.author}/>
+            <HighlightedQuote text={loadedQuote.text} author={loadedQuote.author}/>
             <Route path={match.path} exact>
                 <div className="centered">
                     <Link className="btn--flat" to={`${match.url}/comments`}>
